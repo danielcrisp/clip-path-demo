@@ -10,4 +10,4 @@ A simple demo walking you through how to create a striking text effect using `cl
 
     npm start
 
-Open http://localhost:3000 in your browser to view the step of the tutorial.
+Open http://localhost:3000 in your browser to view the steps of the tutorial.
