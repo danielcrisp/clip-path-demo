@@ -1,0 +1,148 @@
+/**
+ *
+ * VARIABLES (to make it easier to read)
+ *
+ */
+
+$white: #fff;
+$black: #000;
+$grey: #ccc;
+$pink: #ff2089;
+$blue: #3efdff;
+$green: #eaff00;
+
+/**
+ *
+ * GENERAL
+ *
+ */
+
+html,
+body {
+    height: 100%;
+}
+
+html {
+    font-size: 16px; // set our root font-size
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    overflow: hidden;
+}
+
+/**
+ *
+ * DEMO
+ *
+ */
+
+.clip {
+
+  // style the text
+  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  font-size: 8rem;
+  text-align: center;
+  text-transform: uppercase;
+
+
+  // position self (&) and pseudo elements (before / after)
+  &,
+  &::before,
+  &::after {
+
+    // fill the page
+    position: fixed; // using 'fixed' here prevents repaint issues in Chrome
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    // centre the text
+    display: flex;
+    justify-content: center; // horizontal alignment
+    align-items: center; // vertical alignment
+
+    // trick: squeeze the text to get it to wrap
+    padding: 0 50%;
+    box-sizing: border-box;
+
+  }
+
+  &::before,
+  &::after {
+    // read the text from the HTML instead of hardcoding in the CSS
+    content: attr(data-content);
+    // set the transition on the clip-path property
+    transition: clip-path 500ms;
+  }
+
+  &::before {
+    color: $white;
+    background: $pink;
+    // clip the ::before element into a triangle so only the top left half is visible
+    clip-path: polygon(0 0, 100% 0, 0 100%, 0 100%);
+  }
+
+  &::after {
+    color: $pink;
+    background: $blue;
+    // clip the ::after element into a triangle so only the bottom right half is visible
+    clip-path: polygon(100% 0, 100% 100%, 0 100%, 100% 0);
+  }
+
+}
+
+/**
+ *
+ * STATES - state2
+ *
+ */
+
+.clip {
+  &::before {
+    // pull the triangle back slightly to reveal the background
+    clip-path: polygon(0 0, 80% 0, 0 100%, 0 100%);
+  }
+  &::after {
+    // pull the triangle back slightly to reveal the background
+    clip-path: polygon(100% 0, 100% 100%, 20% 100%, 100% 0);
+  }
+}
+
+
+/**
+ *
+ * STATES - state3
+ *
+ */
+
+.clip {
+  &::before {
+    // use our extra point to create a square on the left
+    clip-path: polygon(0 0, 40% 0, 40% 100%, 0 100%);
+  }
+  &::after {
+    // and a square on the right
+    clip-path: polygon(100% 0, 100% 100%, 60% 100%, 60% 0);
+  }
+}
+
+/**
+ *
+ * STATES - state4
+ *
+ */
+
+.clip {
+  &::before {
+    // twist the clip path horizontally
+    clip-path: polygon(100% 0, 0 0, 100% 100%, 0 100%);
+  }
+  &::after {
+    // twist the clip path vertically
+    clip-path: polygon(100% 0, 100% 100%, 0 0, 0 100%);
+  }
+}
